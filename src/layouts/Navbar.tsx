@@ -2,6 +2,7 @@
 import { Navbar as Nav, Button } from "flowbite-react";
 import reactIcon from "@/assets/react.svg";
 import { Link } from "react-router-dom";
+import MyButton from "@/components/Button";
 const Navbar = () => {
   return (
     <Nav fluid rounded>
@@ -18,7 +19,7 @@ const Navbar = () => {
         </Nav.Brand>
       </Link>
       <div className="flex md:order-2">
-        <Button>Login</Button>
+        <MyButton>Login</MyButton>
         <Nav.Toggle />
       </div>
       <Nav.Collapse>
