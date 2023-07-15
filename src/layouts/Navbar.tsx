@@ -18,17 +18,19 @@ const Navbar = () => {
         </Nav.Brand>
       </Link>
       <div className="flex md:order-2">
-        <Button>Get started</Button>
+        <Button>Login</Button>
         <Nav.Toggle />
       </div>
       <Nav.Collapse>
-        <Nav.Link active href="#">
-          <p>Home</p>
-        </Nav.Link>
-        <Nav.Link href="#">About</Nav.Link>
-        <Nav.Link href="#">Services</Nav.Link>
-        <Nav.Link href="#">Pricing</Nav.Link>
-        <Nav.Link href="#">Contact</Nav.Link>
+        <Link to={"/"}>
+          <Nav.Link>Home</Nav.Link>
+        </Link>
+        <Link to={"/"}>
+          <Nav.Link>All Books</Nav.Link>
+        </Link>
+        <Link to={"/"}>
+          <Nav.Link>About</Nav.Link>
+        </Link>
       </Nav.Collapse>
     </Nav>
   );
