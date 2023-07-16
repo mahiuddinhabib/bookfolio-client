@@ -3,7 +3,7 @@ import { useGetBooksQuery } from "@/redux/features/books/bookApi";
 import { IBook } from "@/types/globalTypes";
 const Home = () => {
   const { data, isLoading, error } = useGetBooksQuery(undefined);
-  console.log(data, isLoading, error);
+  // console.log(data, isLoading, error);
   return (
     <div className="px-4 md:px-12 lg:px-40">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

@@ -26,7 +26,7 @@ const Navbar = () => {
         <Link to={"/"}>
           <Nav.Link>Home</Nav.Link>
         </Link>
-        <Link to={"/"}>
+        <Link to={"/all-books"}>
           <Nav.Link>All Books</Nav.Link>
         </Link>
         <Link to={"/"}>

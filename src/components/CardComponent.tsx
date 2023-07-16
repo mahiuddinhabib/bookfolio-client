@@ -1,9 +1,11 @@
 "use client";
 
 import { IBook } from "@/types/globalTypes";
-import { Button, Card } from "flowbite-react";
 import { BsStarFill } from "react-icons/bs";
 import MyButton from "./Button";
+import bookCover from "@/assets/bookCover.png"
+import { Card } from "flowbite-react";
+
 export default function CardComponent({ book }: { book: IBook }) {
   const { title, author, genre, publicationDate, owner } = book;
   // console.log(title, author, genre, publicationDate, owner);
@@ -17,7 +19,7 @@ export default function CardComponent({ book }: { book: IBook }) {
   return (
     <Card
       imgAlt="Book cover here"
-      imgSrc="https://99designs-start-attachments.imgix.net/alchemy-pictures/2016%2F02%2F25%2F23%2F28%2F18%2F85d3210c-5479-4b7a-a473-fd807e4ca89c%2FHero2.png?auto=format&ch=Width%2CDPR&crop=false&fm=png&w=600&h=600"
+      imgSrc={bookCover}
     >
       <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
         {title} <br />
