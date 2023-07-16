@@ -1,7 +1,20 @@
+import { useLoginUserMutation } from "@/redux/features/user/userApi";
+
 const Login = () => {
+  const data = {
+    email: "mail@testmail.com",
+    password: "nopass",
+  };
+  const [loginUser, { isLoading, isError, isSuccess }] =
+    useLoginUserMutation();
+
+  const handleLogin = () => {
+    loginUser({ data });
+  };
+  console.log(isLoading, isError, isSuccess);
   return (
     <div>
-      <p>Login</p>
+      <button onClick={handleLogin}>Login User</button>
     </div>
   );
 };

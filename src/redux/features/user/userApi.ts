@@ -9,6 +9,21 @@ const userApi = api.injectEndpoints({
         body: data,
       }),
     }),
+    loginUser: builder.mutation({
+      query: ({ data }) => ({
+        url: `/auth/login`,
+        method: "POST",
+        body: data,
+      }),
+      // Handle the response from the login API
+      transformResponse: (response) => {
+        const accessToken = response.data.accessToken;
+        localStorage.setItem('accessToken', accessToken);
+        console.log(response);
+        // Return the response data
+        return response;
+      },
+    }),
     /* getUsers: builder.query({
       query: (filters) => ({
         url: "/users",
@@ -24,5 +39,6 @@ const userApi = api.injectEndpoints({
 export const {
   // useGetUsersQuery,
   useRegisterUserMutation,
+  useLoginUserMutation
   // useSingleUserQuery,
 } = userApi;
