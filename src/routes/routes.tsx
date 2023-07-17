@@ -1,9 +1,11 @@
 import App from '@/App';
+import AddBook from '@/pages/AddBook';
 import AllBooks from '@/pages/AllBooks';
 import Home from '@/pages/Home';
 import Login from '@/pages/Login';
 import NotFound from '@/pages/NotFound';
 import Register from '@/pages/Register';
+import SingleBook from '@/pages/SingleBook';
 import { createBrowserRouter } from 'react-router-dom';
 
 
@@ -19,6 +21,14 @@ const routes = createBrowserRouter([
       {
         path: '/all-books',
         element: <AllBooks />,
+      },
+      {
+        path: '/single-book',
+        element: <SingleBook />,
+      },
+      {
+        path: '/add-book',
+        element: <AddBook />,
       },
       /* {
         path: '/checkout',

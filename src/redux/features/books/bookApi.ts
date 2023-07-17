@@ -9,7 +9,22 @@ const bookApi = api.injectEndpoints({
       }),
     }),
     singleBook: builder.query({
-      query: (id) => `/books/${id}`,
+      query: (id) => ({
+        url: `/books/${id}`,
+        headers: {
+          Authorization: `${localStorage.getItem("accessToken")}`,
+        },
+      }),
+    }),
+    addBook: builder.mutation({
+      query: ({ data }) => ({
+        url: `/books`,
+        headers: {
+          Authorization: `${localStorage.getItem("accessToken")}`,
+        },
+        method: "POST",
+        body: data,
+      }),
     }),
     postReview: builder.mutation({
       query: ({ id, data }) => ({
@@ -31,4 +46,5 @@ export const {
   useGetBooksQuery,
   usePostReviewMutation,
   useSingleBookQuery,
+  useAddBookMutation
 } = bookApi;

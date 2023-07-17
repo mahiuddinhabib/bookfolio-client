@@ -20,7 +20,6 @@ const userApi = api.injectEndpoints({
         const accessToken = response.data.accessToken;
         localStorage.setItem('accessToken', accessToken);
         console.log(response);
-        // Return the response data
         return response;
       },
     }),
