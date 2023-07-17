@@ -4,14 +4,11 @@ const SingleBook = () => {
   const { data, isLoading, error } = useSingleBookQuery(
     "64b13116d31568349eaf4483"
   );
-
-  const handleGet = () => {
-    console.log(`loading: ${isLoading}, error: ${error}`);
-    console.log(data);
-  };
+  console.log(`loading: ${isLoading}, error: ${error}`);
+  console.log(data);
   return (
     <div>
-      <button onClick={handleGet}>Get Book</button>
+      <h3 className="text-xl">Get Book</h3>
     </div>
   );
 };

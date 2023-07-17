@@ -2,7 +2,7 @@ import { useLoginUserMutation } from "@/redux/features/user/userApi";
 
 const Login = () => {
   const data = {
-    email: "mail@testmail.com",
+    email: "mail@fmail.com",
     password: "nopass",
   };
   const [loginUser, { isLoading, isError, isSuccess }] =

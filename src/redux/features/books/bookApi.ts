@@ -1,4 +1,4 @@
-import { api } from '@/redux/api/apiSlice';
+import { api } from "@/redux/api/apiSlice";
 
 const bookApi = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -26,6 +26,16 @@ const bookApi = api.injectEndpoints({
         body: data,
       }),
     }),
+    editBook: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `/books/${id}`,
+        headers: {
+          Authorization: `${localStorage.getItem("accessToken")}`,
+        },
+        method: "PATCH",
+        body: data,
+      }),
+    }),
     postReview: builder.mutation({
       query: ({ id, data }) => ({
         url: `/books/reviews/${id}`,
@@ -46,5 +56,6 @@ export const {
   useGetBooksQuery,
   usePostReviewMutation,
   useSingleBookQuery,
-  useAddBookMutation
+  useAddBookMutation,
+  useEditBookMutation
 } = bookApi;

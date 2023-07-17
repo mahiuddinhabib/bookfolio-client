@@ -1,6 +1,7 @@
 import App from '@/App';
 import AddBook from '@/pages/AddBook';
 import AllBooks from '@/pages/AllBooks';
+import EditBook from '@/pages/EditBook';
 import Home from '@/pages/Home';
 import Login from '@/pages/Login';
 import NotFound from '@/pages/NotFound';
@@ -29,6 +30,10 @@ const routes = createBrowserRouter([
       {
         path: '/add-book',
         element: <AddBook />,
+      },
+      {
+        path: '/edit-book',
+        element: <EditBook />,
       },
       /* {
         path: '/checkout',
