@@ -6,7 +6,7 @@ import Home from '@/pages/Home';
 import Login from '@/pages/Login';
 import NotFound from '@/pages/NotFound';
 import Register from '@/pages/Register';
-import SingleBook from '@/pages/SingleBook';
+import BookDetail from '@/pages/SingleBook';
 import { createBrowserRouter } from 'react-router-dom';
 
 
@@ -24,15 +24,15 @@ const routes = createBrowserRouter([
         element: <AllBooks />,
       },
       {
-        path: '/single-book',
-        element: <SingleBook />,
+        path: '/single-book/:id',
+        element: <BookDetail />,
       },
       {
         path: '/add-book',
         element: <AddBook />,
       },
       {
-        path: '/edit-book',
+        path: '/edit-book/:id',
         element: <EditBook />,
       },
       /* {

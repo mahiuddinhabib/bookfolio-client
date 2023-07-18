@@ -1,16 +1,20 @@
 import { useEditBookMutation } from "@/redux/features/books/bookApi";
+import { useParams } from "react-router-dom";
 
 const EditBook = () => {
-  const bookId = "64b498ce2bf1fbd16f4eef6b";
+  const {id} = useParams()
   const data = {
-    title: "No Book",
-    author: "No Writer",
+    title: "Edited book",
+    author: "Test Writer",
+    genre: "fiction",
+    publicationDate: "2023",
+    owner: "64b0d1c10f130293529e59d3",
   };
 
   const [editBook, { isLoading, isError, isSuccess }] = useEditBookMutation();
 
   const handleEditBook = () => {
-    editBook({ id: bookId, data })
+    editBook({ id, data })
       .then((result) => {
         console.log(`Success: ${isSuccess}`, result);
       })

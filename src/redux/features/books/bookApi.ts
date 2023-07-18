@@ -15,6 +15,7 @@ const bookApi = api.injectEndpoints({
           Authorization: `${localStorage.getItem("accessToken")}`,
         },
       }),
+      providesTags: ["reviews"],
     }),
     addBook: builder.mutation({
       query: ({ data }) => ({
@@ -39,6 +40,9 @@ const bookApi = api.injectEndpoints({
     postReview: builder.mutation({
       query: ({ id, data }) => ({
         url: `/books/reviews/${id}`,
+        headers: {
+          Authorization: `${localStorage.getItem("accessToken")}`,
+        },
         method: "POST",
         body: data,
       }),
