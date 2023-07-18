@@ -3,7 +3,7 @@ import {
   usePostReviewMutation,
   useSingleBookQuery,
 } from "@/redux/features/books/bookApi";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import bookCover from "@/assets/bookCover.png";
 import profilePhoto from "@/assets/profile.svg";
 
@@ -55,6 +55,8 @@ const BookDetail = () => {
           <span className="font-semibold">Publication Year:</span>{" "}
           {publicationDate}
         </p>
+        <Link to={`/edit-book/${id}`}>Edit Book</Link>
+        
 
         {/* Reviews */}
         {reviews && reviews.length > 0 && (
