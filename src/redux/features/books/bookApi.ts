@@ -7,7 +7,7 @@ const bookApi = api.injectEndpoints({
         url: "/books",
         params: filters,
       }),
-      providesTags: ["update"],
+      providesTags: ["delete"],
     }),
     singleBook: builder.query({
       query: (id) => ({
@@ -16,7 +16,7 @@ const bookApi = api.injectEndpoints({
           Authorization: `${localStorage.getItem("accessToken")}`,
         },
       }),
-      providesTags: ["reviews"],
+      providesTags: ["reviews", "update"],
     }),
     addBook: builder.mutation({
       query: ({ data }) => ({
@@ -38,6 +38,16 @@ const bookApi = api.injectEndpoints({
         body: data,
       }),
       invalidatesTags: ["update"],
+    }),
+    deleteBook: builder.mutation({
+      query: ({ id }) => ({
+        url: `/books/${id}`,
+        headers: {
+          Authorization: `${localStorage.getItem("accessToken")}`,
+        },
+        method: "DELETE",
+      }),
+      invalidatesTags: ["delete"],
     }),
     postReview: builder.mutation({
       query: ({ id, data }) => ({
@@ -65,4 +75,5 @@ export const {
   useAddBookMutation,
   useEditBookMutation,
   useLazySingleBookQuery,
+  useDeleteBookMutation,
 } = bookApi;

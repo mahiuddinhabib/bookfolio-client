@@ -18,10 +18,30 @@ const userApi = api.injectEndpoints({
       // Handle the response from the login API
       transformResponse: (response) => {
         const accessToken = response.data.accessToken;
-        localStorage.setItem('accessToken', accessToken);
+        localStorage.setItem("accessToken", accessToken);
         console.log(response);
         return response;
       },
+    }),
+    addToWishlist: builder.mutation({
+      query: ( data ) => ({
+        url: `/users/wish-list`,
+        headers: {
+          Authorization: `${localStorage.getItem("accessToken")}`,
+        },
+        method: "POST",
+        body: data,
+      }),
+    }),
+    addTotoRead: builder.mutation({
+      query: ( data ) => ({
+        url: `/users/to-read`,
+        headers: {
+          Authorization: `${localStorage.getItem("accessToken")}`,
+        },
+        method: "POST",
+        body: data,
+      }),
     }),
     /* getUsers: builder.query({
       query: (filters) => ({
@@ -38,6 +58,8 @@ const userApi = api.injectEndpoints({
 export const {
   // useGetUsersQuery,
   useRegisterUserMutation,
-  useLoginUserMutation
+  useLoginUserMutation,
+  useAddToWishlistMutation,
+  useAddTotoReadMutation
   // useSingleUserQuery,
 } = userApi;
