@@ -1,13 +1,13 @@
-import { useState } from "react";
 import { useLoginUserMutation } from "@/redux/features/user/userApi";
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const [formData, setFormData] = useState({
+  const navigate = useNavigate();
+  const [formData, setFormData] = React.useState({
     email: "",
     password: "",
   });
-
-  const [loginUser, { isLoading, isError, isSuccess }] = useLoginUserMutation();
 
   const handleInputChange = (e) => {
     setFormData({
@@ -16,9 +16,18 @@ const Login = () => {
     });
   };
 
+  const [loginUser, { isLoading, isError, isSuccess }] = useLoginUserMutation();
+
+  React.useEffect(() => {
+    if (isSuccess) {
+      // If login was successful, navigate to the homepage
+      navigate("/");
+    }
+  }, [isSuccess, navigate]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    loginUser({ data: formData }).then((data) => console.log(data));
+    loginUser({ data: formData });
   };
 
   console.log(isLoading, isError, isSuccess);
@@ -48,32 +57,12 @@ const Login = () => {
         <br />
         <button type="submit">Login</button>
       </form>
+      <p>
+        Haven't an account yet?
+        <Link to={"/register"}>Register Here</Link>
+      </p>
     </div>
   );
 };
 
 export default Login;
-
-/* import { useLoginUserMutation } from "@/redux/features/user/userApi";
-
-const Login = () => {
-  const data = {
-    email: "mail@fmail.com",
-    password: "nopass",
-  };
-  const [loginUser, { isLoading, isError, isSuccess }] =
-    useLoginUserMutation();
-
-  const handleLogin = () => {
-    loginUser({ data });
-  };
-  console.log(isLoading, isError, isSuccess);
-  return (
-    <div>
-      <button onClick={handleLogin}>Login User</button>
-    </div>
-  );
-};
-
-export default Login;
- */

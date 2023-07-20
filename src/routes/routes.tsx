@@ -7,6 +7,7 @@ import Login from '@/pages/Login';
 import NotFound from '@/pages/NotFound';
 import Register from '@/pages/Register';
 import BookDetail from '@/pages/SingleBook';
+import ToRead from '@/pages/ToRead';
 import { createBrowserRouter } from 'react-router-dom';
 
 
@@ -34,6 +35,10 @@ const routes = createBrowserRouter([
       {
         path: '/edit-book/:id',
         element: <EditBook />,
+      },
+      {
+        path: '/to-read/',
+        element: <ToRead />,
       },
       /* {
         path: '/checkout',

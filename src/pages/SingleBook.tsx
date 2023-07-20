@@ -7,11 +7,15 @@ import {
 import { Link, useNavigate, useParams } from "react-router-dom";
 import bookCover from "@/assets/bookCover.png";
 import profilePhoto from "@/assets/profile.svg";
-import { useAddToWishlistMutation, useAddTotoReadMutation } from "@/redux/features/user/userApi";
+import {
+  useAddToWishlistMutation,
+  useAddTotoReadMutation,
+} from "@/redux/features/user/userApi";
 
 const BookDetail = () => {
+  const storedUserId = localStorage.getItem("id");
   const { id } = useParams();
-  const { data, isLoading, error } = useSingleBookQuery(id);
+  const { data, isLoading } = useSingleBookQuery(id);
   const [revieW, setRevieW] = useState("");
   const [addReview] = usePostReviewMutation();
   const [deleteBook] = useDeleteBookMutation();
@@ -21,13 +25,13 @@ const BookDetail = () => {
 
   const handleAddReview = (e) => {
     e.preventDefault();
-    console.log(revieW);
+    // console.log(revieW);
     const data = {
-      reviewer: "64b0d1c10f130293529e59d3", //user id
+      reviewer: storedUserId, //user id
       review: revieW,
     };
     // Call the addReview mutation with the book ID and review data
-    addReview({ id, data }).then((data) => console.log(data));
+    addReview({ id, data });
     setRevieW("");
   };
 
@@ -38,11 +42,11 @@ const BookDetail = () => {
 
   const handleAddToWishlist = async () => {
     const wishedData = {
-      user: "64b0d1c10f130293529e59d3",
+      user: storedUserId,
       book: id,
     };
     try {
-      await addToWishlist(wishedData).then((data) => console.log(data));
+      await addToWishlist(wishedData);
     } catch (error) {
       console.log(error);
     }
@@ -50,11 +54,12 @@ const BookDetail = () => {
 
   const handleAddTotoRead = async () => {
     const readData = {
-      user: "64b0d1c10f130293529e59d3",
+      user: storedUserId,
       book: id,
     };
     try {
-      await addTotoRead(readData).then((data) => console.log(data));
+      await addTotoRead(readData);
+      navigate("/to-read");
     } catch (error) {
       console.log(error);
     }
@@ -62,10 +67,6 @@ const BookDetail = () => {
 
   if (isLoading) {
     return <p>Loading...</p>;
-  }
-
-  if (error) {
-    return <p>Error: {error.message}</p>;
   }
 
   const { title, genre, author, publicationDate, reviews } = data.data;
@@ -90,10 +91,30 @@ const BookDetail = () => {
           <span className="font-semibold">Publication Year:</span>{" "}
           {publicationDate}
         </p>
-        <Link to={`/edit-book/${id}`}>Edit Book</Link>
-        <button onClick={handleDelete}>Delete Book</button>
-        <button onClick={handleAddToWishlist}>Add to wishlist</button>
-        <button onClick={handleAddTotoRead}>Add to toRead</button>
+        <Link
+          to={`/edit-book/${id}`}
+          className="bg-gray-400 px-[7px] py-[5.2px] rounded-lg mr-3 hover:bg-gray-500 transition-all duration-200 focus:outline-none active:transform active:scale-95"
+        >
+          Edit Book
+        </Link>
+        <button
+          onClick={handleDelete}
+          className="bg-gray-400 px-2 py-1 rounded-lg mr-3 hover:bg-gray-500 transition-all duration-200 focus:outline-none active:transform active:scale-95"
+        >
+          Delete Book
+        </button>
+        <button
+          onClick={handleAddToWishlist}
+          className="bg-gray-400 px-2 py-1 rounded-lg mr-3 hover:bg-gray-500 transition-all duration-200 focus:outline-none active:transform active:scale-95"
+        >
+          Add to wishlist
+        </button>
+        <button
+          onClick={handleAddTotoRead}
+          className="bg-gray-400 px-2 py-1 rounded-lg mr-3 hover:bg-gray-500 transition-all duration-200 focus:outline-none active:transform active:scale-95"
+        >
+          Add to toRead
+        </button>
 
         {/* Reviews */}
         {reviews && reviews.length > 0 && (
@@ -121,17 +142,20 @@ const BookDetail = () => {
         <div className="mt-8">
           <h2 className="text-xl font-semibold mb-4">Add Review</h2>
           <form>
-            <label>
-              Add Review:
-              <input
-                type="text"
-                name="review"
-                value={revieW}
-                onChange={(e) => setRevieW(e.target.value)}
-              />
-            </label>
-            <button type="button" onClick={handleAddReview}>
-              Add Book
+            <input
+              type="text"
+              name="review"
+              value={revieW}
+              className="w-[50%] border-s-2 border-e-0 border-y-2 rounded-s-xl"
+              onChange={(e) => setRevieW(e.target.value)}
+            />
+            <button
+              type="button"
+              onClick={handleAddReview}
+              disabled={revieW === ""}
+              className={`bg-gray-400 px-2 py-[9.5px] rounded-e-xl mr-3 hover:bg-gray-500 transition-all duration-200 disabled:bg-gray-300`}
+            >
+              Add Review
             </button>
           </form>
         </div>

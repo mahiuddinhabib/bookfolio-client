@@ -1,4 +1,4 @@
-import { api } from '@/redux/api/apiSlice';
+import { api } from "@/redux/api/apiSlice";
 
 const userApi = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -18,13 +18,14 @@ const userApi = api.injectEndpoints({
       // Handle the response from the login API
       transformResponse: (response) => {
         const accessToken = response.data.accessToken;
+        const id = response.data.id;
         localStorage.setItem("accessToken", accessToken);
-        console.log(response);
+        localStorage.setItem("id", id);
         return response;
       },
     }),
     addToWishlist: builder.mutation({
-      query: ( data ) => ({
+      query: (data) => ({
         url: `/users/wish-list`,
         headers: {
           Authorization: `${localStorage.getItem("accessToken")}`,
@@ -34,7 +35,7 @@ const userApi = api.injectEndpoints({
       }),
     }),
     addTotoRead: builder.mutation({
-      query: ( data ) => ({
+      query: (data) => ({
         url: `/users/to-read`,
         headers: {
           Authorization: `${localStorage.getItem("accessToken")}`,
@@ -43,15 +44,34 @@ const userApi = api.injectEndpoints({
         body: data,
       }),
     }),
+    updateIsFinished: builder.mutation({
+      query: (data) => ({
+        url: `/users/to-read`,
+        headers: {
+          Authorization: `${localStorage.getItem("accessToken")}`,
+        },
+        method: "PATCH",
+        body: data,
+      }),
+    }),
+    getToRead: builder.query({
+      query: (id) => ({
+        url: `/users/to-read/${id}`,
+        headers: {
+          Authorization: `${localStorage.getItem("accessToken")}`,
+        },
+      }),
+      // providesTags: ["delete"],
+    }),
     /* getUsers: builder.query({
       query: (filters) => ({
         url: "/users",
         params: filters,
       }),
-    }),
+    }), 
     singleUser: builder.query({
       query: (id) => `/users/${id}`,
-    }), */
+    }),*/
   }),
 });
 
@@ -60,6 +80,8 @@ export const {
   useRegisterUserMutation,
   useLoginUserMutation,
   useAddToWishlistMutation,
-  useAddTotoReadMutation
+  useAddTotoReadMutation,
+  useUpdateIsFinishedMutation,
+  useGetToReadQuery,
   // useSingleUserQuery,
 } = userApi;

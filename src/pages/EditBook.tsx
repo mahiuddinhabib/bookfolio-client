@@ -16,11 +16,9 @@ const UpdateBook = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<FormValues>();
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [editBook] = useEditBookMutation();
 
   const onSubmit = async (formData: FormValues) => {
-    setIsSubmitting(true);
 
     try {
       await editBook({ id, data: formData });
@@ -28,15 +26,10 @@ const UpdateBook = () => {
       // Display a success toast
       // toast.success("Book updated successfully");
 
-      // navigate(`/book-details/${id}`);
-      // Reset the form
-      setIsSubmitting(false);
+      navigate(`/single-book/${id}`);
     } catch (error) {
       // Display an error toast
       // toast.error(`${error}`);
-
-      // Reset the form
-      setIsSubmitting(false);
     }
   };
 
@@ -133,14 +126,13 @@ const UpdateBook = () => {
       <div className="flex justify-center">
         <button
           type="submit"
-          className="px-6 py-2 text-lg font-semibold text-white bg-blue-500 rounded-lg focus:outline-none"
-          disabled={isSubmitting}
+          className="bg-gray-400 px-3 py-2 rounded-lg hover:bg-gray-500 transition-all duration-200 focus:outline-none active:transform active:scale-95 disabled:bg-gray-400"
         >
-          {isSubmitting ? "Submitting..." : "Update Book"}
+          Update Book
         </button>
       </div>
     </form>
   );
 };
 
-export default UpdateBook
+export default UpdateBook;

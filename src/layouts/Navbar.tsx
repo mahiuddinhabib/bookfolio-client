@@ -1,9 +1,32 @@
-"use client";
-import { Navbar as Nav, Button } from "flowbite-react";
+import React from "react";
+import { Navbar as Nav } from "flowbite-react";
+import { Link, useNavigate } from "react-router-dom";
 import reactIcon from "@/assets/react.svg";
-import { Link } from "react-router-dom";
 import MyButton from "@/components/Button";
+
 const Navbar = () => {
+  const [userId, setUserId] = React.useState(""); // Use React.useState instead of useState
+
+  React.useEffect(() => {
+    const storedUserId = localStorage.getItem("id");
+    if (storedUserId) {
+      setUserId(storedUserId);
+    }
+  }, []);
+
+  const navigate = useNavigate();
+
+  const handleLogin = () => {
+    navigate("/login");
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("id");
+    setUserId(""); // Update userId state to empty after logout
+    navigate("/");
+  };
+
   return (
     <Nav fluid rounded>
       <Link to={"/"}>
@@ -19,7 +42,11 @@ const Navbar = () => {
         </Nav.Brand>
       </Link>
       <div className="flex md:order-2">
-        <MyButton>Login</MyButton>
+        {!userId ? (
+          <MyButton onClick={handleLogin}>Login</MyButton>
+        ) : (
+          <MyButton onClick={handleLogout}>Logout</MyButton>
+        )}
         <Nav.Toggle />
       </div>
       <Nav.Collapse>

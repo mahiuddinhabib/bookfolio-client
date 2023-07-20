@@ -20,16 +20,6 @@ const TableRow = ({ book }: { book: IBook }) => {
             Detail
           </Link>
         </Table.Cell>
-        <Table.Cell>
-          <button className="bg-red-400 px-2 py-1 rounded-lg hover:bg-red-500 text-white transition-all duration-200 focus:outline-none active:transform active:scale-95">
-            +Wishlist
-          </button>
-        </Table.Cell>
-        <Table.Cell>
-          <button className="bg-red-400 px-2 py-1 rounded-lg hover:bg-red-500 text-white transition-all duration-200 focus:outline-none active:transform active:scale-95">
-            +toRead
-          </button>
-        </Table.Cell>
       </Table.Row>
     </>
   );
