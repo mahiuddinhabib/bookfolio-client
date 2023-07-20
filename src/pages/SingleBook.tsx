@@ -48,6 +48,7 @@ const BookDetail = () => {
     };
     try {
       await addToWishlist(wishedData);
+      navigate("/wish-list");
     } catch (error) {
       console.log(error);
     }

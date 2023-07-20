@@ -34,6 +34,14 @@ const userApi = api.injectEndpoints({
         body: data,
       }),
     }),
+    getWishlist: builder.query({
+      query: (id) => ({
+        url: `/users/wish-list/${id}`,
+        headers: {
+          Authorization: `${localStorage.getItem("accessToken")}`,
+        },
+      }),
+    }),
     addTotoRead: builder.mutation({
       query: (data) => ({
         url: `/users/to-read`,
@@ -83,5 +91,6 @@ export const {
   useAddTotoReadMutation,
   useUpdateIsFinishedMutation,
   useGetToReadQuery,
+  useGetWishlistQuery,
   // useSingleUserQuery,
 } = userApi;

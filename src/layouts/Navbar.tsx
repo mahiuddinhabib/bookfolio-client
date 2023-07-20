@@ -1,7 +1,7 @@
 import React from "react";
 import { Navbar as Nav } from "flowbite-react";
 import { Link, useNavigate } from "react-router-dom";
-import reactIcon from "@/assets/react.svg";
+import bookCover from "@/assets/bookCover.png";
 import MyButton from "@/components/Button";
 
 const Navbar = () => {
@@ -28,13 +28,13 @@ const Navbar = () => {
   };
 
   return (
-    <Nav fluid rounded>
+    <Nav fluid rounded className="bg-gray-100">
       <Link to={"/"}>
         <Nav.Brand>
           <img
             alt="Bookfolio Logo"
             className="mr-3 h-6 sm:h-9"
-            src={reactIcon}
+            src={bookCover}
           />
           <span className="self-center whitespace-nowrap text-3xl font-semibold dark:text-white">
             Bookfolio
