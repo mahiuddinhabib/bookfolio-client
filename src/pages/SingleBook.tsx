@@ -11,6 +11,7 @@ import {
   useAddToWishlistMutation,
   useAddTotoReadMutation,
 } from "@/redux/features/user/userApi";
+import Error from "./Error";
 
 const BookDetail = () => {
   const storedUserId = localStorage.getItem("id");
