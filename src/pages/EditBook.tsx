@@ -30,9 +30,8 @@ const UpdateBook = () => {
       toast.loading('trying to edit, please way')
     }
     if (isEditError) {
-      toast.error(`${errorEdit?.data?.message}, You can't Edit this`);
+      console.log(errorEdit);
       navigate(`/single-book/${id}`);
-      // console.log(errorEdit);
     }
   };
 

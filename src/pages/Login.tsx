@@ -13,7 +13,7 @@ const Login = () => {
     password: "",
   });
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e:any) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -22,14 +22,7 @@ const Login = () => {
 
   const [loginUser, { isSuccess }] = useLoginUserMutation();
 
-  /*  React.useEffect(() => {
-    if (isSuccess) {
-      toast.success("login successful")
-      navigate("/");
-    }
-  }, [isSuccess, navigate]);
- */
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e:any) => {
     e.preventDefault();
     await loginUser({ data: formData });
 

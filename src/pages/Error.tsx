@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+/* import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 const Error = ({ messages }) => {
@@ -23,3 +23,4 @@ const Error = ({ messages }) => {
 };
 
 export default Error;
+ */

@@ -1,0 +1,107 @@
+[
+  {
+    "title": "The Great Gatsby",
+    "author": "F. Scott Fitzgerald",
+    "genre": "fiction",
+    "publicationDate": "2023-05-04",
+    "owner": "64ba1711bfcfeefcb8c7039c"
+  },
+  {
+    "title": "The Da Vinci Code",
+    "author": "Dan Brown",
+    "genre": "mystery",
+    "publicationDate": "2003-03-18",
+    "owner": "64ba1711bfcfeefcb8c7039c"
+  },
+  {
+    "title": "Harry Potter and the Sorcerer's Stone",
+    "author": "J.K. Rowling",
+    "genre": "fantasy",
+    "publicationDate": "1997-06-26",
+    "owner": "64ba1711bfcfeefcb8c7039c"
+  },
+  {
+    "title": "The Power of Now",
+    "author": "Eckhart Tolle",
+    "genre": "self-help",
+    "publicationDate": "1997-09-01",
+    "owner": "64ba1711bfcfeefcb8c7039c"
+  },
+  {
+    "title": "The Diary of a Young Girl",
+    "author": "Anne Frank",
+    "genre": "biography",
+    "publicationDate": "1947-06-25",
+    "owner": "64ba1711bfcfeefcb8c7039c"
+  },
+  {
+    "title": "Gone Girl",
+    "author": "Gillian Flynn",
+    "genre": "thriller",
+    "publicationDate": "2012-06-05",
+    "owner": "64ba1711bfcfeefcb8c7039c"
+  },
+  {
+    "title": "Pride and Prejudice",
+    "author": "Jane Austen",
+    "genre": "romance",
+    "publicationDate": "1813-01-28",
+    "owner": "64ba1711bfcfeefcb8c7039c"
+  },
+  {
+    "title": "Sapiens: A Brief History of Humankind",
+    "author": "Yuval Noah Harari",
+    "genre": "history",
+    "publicationDate": "2011-01-01",
+    "owner": "64ba1711bfcfeefcb8c7039c"
+  },
+  {
+    "title": "The Catcher in the Rye",
+    "author": "J.D. Salinger",
+    "genre": "fiction",
+    "publicationDate": "1951-07-16",
+    "owner": "64ba1711bfcfeefcb8c7039c"
+  },
+  {
+    "title": "The Hobbit",
+    "author": "J.R.R. Tolkien",
+    "genre": "fantasy",
+    "publicationDate": "1937-09-21",
+    "owner": "64ba1711bfcfeefcb8c7039c"
+  },
+  {
+    "title": "Becoming",
+    "author": "Michelle Obama",
+    "genre": "biography",
+    "publicationDate": "2018-11-13",
+    "owner": "64ba1711bfcfeefcb8c7039c"
+  },
+  {
+    "title": "The Girl on the Train",
+    "author": "Paula Hawkins",
+    "genre": "thriller",
+    "publicationDate": "2015-01-13",
+    "owner": "64ba1711bfcfeefcb8c7039c"
+  },
+  {
+    "title": "Jane Eyre",
+    "author": "Charlotte Brontë",
+    "genre": "romance",
+    "publicationDate": "1847-10-16",
+    "owner": "64ba1711bfcfeefcb8c7039c"
+  },
+  {
+    "title": "The Alchemist",
+    "author": "Paulo Coelho",
+    "genre": "fiction",
+    "publicationDate": "1988-06-01",
+    "owner": "64ba1711bfcfeefcb8c7039c"
+  },
+  {
+    "title": "Slaughterhouse-Five",
+    "author": "Kurt Vonnegut",
+    "genre": "fiction",
+    "publicationDate": "1969-03-31",
+    "owner": "64ba1711bfcfeefcb8c7039c"
+  }
+]

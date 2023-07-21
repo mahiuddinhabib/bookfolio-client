@@ -3,19 +3,19 @@ import { useAddBookMutation } from "@/redux/features/books/bookApi";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
-const storedUserId = localStorage.getItem("id");
+// const storedUserId = localStorage.getItem("id");
 const AddBook = () => {
   const [formData, setFormData] = useState({
     title: "",
     author: "",
     genre: "",
     publicationDate: "",
-    owner: storedUserId
+    owner: "64ba1711bfcfeefcb8c7039c",
   });
   const [addBook] = useAddBookMutation();
   const navigate = useNavigate();
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e:any) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,

@@ -28,7 +28,7 @@ const BookDetail = () => {
   const props = { openModal, setOpenModal };
   const navigate = useNavigate();
 
-  const handleAddReview = (e) => {
+  const handleAddReview = (e:any) => {
     e.preventDefault();
     // console.log(revieW);
     const data = {
@@ -130,7 +130,7 @@ const BookDetail = () => {
         {reviews && reviews.length > 0 && (
           <div className="mt-8">
             <h2 className="text-xl font-semibold mb-4">Reviews</h2>
-            {reviews.map((review) => (
+            {reviews.map((review:any) => (
               <div key={review._id} className="flex items-center mb-4">
                 <img
                   src={profilePhoto}
@@ -182,7 +182,7 @@ const BookDetail = () => {
           <div className="text-center">
             <HiOutlineExclamationCircle className="mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200" />
             <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-              Are you sure you want to delete this product?
+              Are you sure you want to delete this book?
             </h3>
             <div className="flex justify-center gap-4">
               <Button

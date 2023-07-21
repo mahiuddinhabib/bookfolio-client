@@ -2,7 +2,6 @@
 
 import { IBook } from "@/types/globalTypes";
 import { BsStarFill } from "react-icons/bs";
-import MyButton from "./Button";
 import bookCover from "@/assets/bookCover.png"
 import { Card } from "flowbite-react";
 import { Link } from "react-router-dom";

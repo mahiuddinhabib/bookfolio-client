@@ -16,7 +16,7 @@ const userApi = api.injectEndpoints({
         body: data,
       }),
       // Handle the response from the login API
-      transformResponse: (response) => {
+      transformResponse: (response:any) => {
         const accessToken = response.data.accessToken;
         const id = response.data.id;
         localStorage.setItem("accessToken", accessToken);
