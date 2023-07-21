@@ -13,7 +13,7 @@ export default function CardComponent({ book }: { book: IBook }) {
 
   const showRating = (rating = 4) => {
     const stars = [];
-    for (let i = 0; i < rating; i++) stars.push(<BsStarFill />);
+    for (let i = 0; i < rating; i++) stars.push(<BsStarFill key={i} />);
     return stars;
   };
 

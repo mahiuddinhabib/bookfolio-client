@@ -17,8 +17,8 @@ const WishList = () => {
           </Table.HeadCell>
         </Table.Head>
         <Table.Body className="divide-y">
-          {data?.data.map((item: any) => (
-            <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+          {data?.data.map((item: any, index:number) => (
+            <Table.Row key={index} className="bg-white dark:border-gray-700 dark:bg-gray-800">
               <Table.Cell className="whitespace-nowrap font-medium flex items-center gap-2 text-gray-900 dark:text-white">
                 <img src={bookCover} className="w-8" />
                 {item.title}

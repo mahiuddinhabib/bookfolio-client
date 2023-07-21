@@ -10,7 +10,7 @@ const ToRead = () => {
   const storedUserId = localStorage.getItem("id");
   const { data } = useGetToReadQuery(storedUserId);
   const [finished] = useUpdateIsFinishedMutation();
-  console.log(data);
+  // console.log(data);
 
   const handleIsFinished = async (bookId: string) => {
     const storedUserId = localStorage.getItem("id");
@@ -33,8 +33,8 @@ const ToRead = () => {
         </Table.HeadCell>
       </Table.Head>
       <Table.Body className="divide-y">
-        {data?.data.map((item:any) => (
-          <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+        {data?.data.map((item:any, index:number) => (
+          <Table.Row key={index} className="bg-white dark:border-gray-700 dark:bg-gray-800">
             <Table.Cell className="whitespace-nowrap font-medium flex items-center gap-2 text-gray-900 dark:text-white">
               <img src={bookCover} className="w-8" />
               {item.book.title}

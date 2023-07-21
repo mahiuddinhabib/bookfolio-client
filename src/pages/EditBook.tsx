@@ -8,25 +8,31 @@ import {
 import { toast } from "react-hot-toast";
 const UpdateBook = () => {
   const { id } = useParams();
-  const { data: book, isLoading, isError } = useSingleBookQuery(id);
+  const { data: book, isError } = useSingleBookQuery(id);
   const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormValues>();
-  const [editBook] = useEditBookMutation();
+  const [
+    editBook,
+    { isSuccess: isSuccessEdit, isLoading:isLoadingEdit, isError: isEditError, error: errorEdit },
+  ] = useEditBookMutation();
 
-  const onSubmit = async (formData: FormValues) => {
-
-    try {
-      await editBook({ id, data: formData });
+  const onSubmit = async(formData: FormValues) => {
+    await editBook({ id, data: formData });
+    if (isSuccessEdit) {
       toast.success("Book updated successfully");
-
       navigate(`/single-book/${id}`);
-    } catch (error) {
-      // Display an error toast
-      // toast.error(`${error}`);
+    }
+    if(isLoadingEdit){
+      toast.loading('trying to edit, please way')
+    }
+    if (isEditError) {
+      toast.error(`${errorEdit?.data?.message}, You can't Edit this`);
+      navigate(`/single-book/${id}`);
+      // console.log(errorEdit);
     }
   };
 

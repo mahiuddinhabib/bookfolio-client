@@ -18,9 +18,9 @@ const AllBooks = () => {
   });
 
   const publicationYears = [
-    ...new Set(data?.data?.map((book) => book.publicationDate)),
+    ...new Set(data?.data?.map((book: IBook) => book.publicationDate)),
   ];
-  
+
   const handleFilterChange = (key: string, value: string) => {
     dispatch(setFilter({ key, value }));
   };
@@ -87,8 +87,10 @@ const AllBooks = () => {
               className="w-full px-4 py-2 border rounded-lg"
             >
               <option value="">All</option>
-              {publicationYears?.map((year: any) => (
-                <option value={year}>{year}</option>
+              {publicationYears?.map((year: any, index: number) => (
+                <option key={index} value={year}>
+                  {year}
+                </option>
               ))}
             </select>
           </div>
@@ -116,8 +118,8 @@ const AllBooks = () => {
           </Table.HeadCell>
         </Table.Head>
         <Table.Body className="divide-y">
-          {data?.data.map((book: IBook) => (
-            <TableRow book={book} />
+          {data?.data.map((book: IBook, index: number) => (
+            <TableRow key={index} book={book} />
           ))}
         </Table.Body>
       </Table>

@@ -12,6 +12,8 @@ import {
   useAddTotoReadMutation,
 } from "@/redux/features/user/userApi";
 import { toast } from "react-hot-toast";
+import { HiOutlineExclamationCircle } from "react-icons/hi";
+import { Button, Modal } from "flowbite-react";
 
 const BookDetail = () => {
   const storedUserId = localStorage.getItem("id");
@@ -22,6 +24,8 @@ const BookDetail = () => {
   const [deleteBook] = useDeleteBookMutation();
   const [addToWishlist] = useAddToWishlistMutation();
   const [addTotoRead] = useAddTotoReadMutation();
+  const [openModal, setOpenModal] = useState<string | undefined>();
+  const props = { openModal, setOpenModal };
   const navigate = useNavigate();
 
   const handleAddReview = (e) => {
@@ -37,9 +41,10 @@ const BookDetail = () => {
     setRevieW("");
   };
 
-  const handleDelete = () => {
-    deleteBook({ id });
+  const handleDelete = async() => {
+    await deleteBook({ id });
     toast.error("Book deleted Successfully");
+    props.setOpenModal(undefined);
     navigate(`/`);
   };
 
@@ -103,7 +108,7 @@ const BookDetail = () => {
           Edit Book
         </Link>
         <button
-          onClick={handleDelete}
+          onClick={() => props.setOpenModal("pop-up")}
           className="bg-gray-400 px-2 py-1 rounded-lg mr-3 hover:bg-gray-500 transition-all duration-200 focus:outline-none active:transform active:scale-95"
         >
           Delete Book
@@ -165,6 +170,37 @@ const BookDetail = () => {
           </form>
         </div>
       </div>
+      {/* modal */}
+      <Modal
+        show={props.openModal === "pop-up"}
+        size="md"
+        popup
+        onClose={() => props.setOpenModal(undefined)}
+      >
+        <Modal.Header />
+        <Modal.Body>
+          <div className="text-center">
+            <HiOutlineExclamationCircle className="mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200" />
+            <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+              Are you sure you want to delete this product?
+            </h3>
+            <div className="flex justify-center gap-4">
+              <Button
+                color="failure"
+                onClick={handleDelete}
+              >
+                Yes, I'm sure
+              </Button>
+              <Button
+                color="gray"
+                onClick={() => props.setOpenModal(undefined)}
+              >
+                No, cancel
+              </Button>
+            </div>
+          </div>
+        </Modal.Body>
+      </Modal>
     </div>
   );
 };
