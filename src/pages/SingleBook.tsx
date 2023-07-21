@@ -33,6 +33,7 @@ const BookDetail = () => {
     };
     // Call the addReview mutation with the book ID and review data
     addReview({ id, data });
+    toast.success("Review added");
     setRevieW("");
   };
 
@@ -150,14 +151,14 @@ const BookDetail = () => {
               type="text"
               name="review"
               value={revieW}
-              className="w-[50%] border-s-2 border-e-0 border-y-2 rounded-s-xl"
+              className="w-[50%] border-gray-400 border-s-2 border-e-0 border-y-2 rounded-s-xl focus:border-gray-400 focus:ring-0 outline-none"
               onChange={(e) => setRevieW(e.target.value)}
             />
             <button
               type="button"
               onClick={handleAddReview}
               disabled={revieW === ""}
-              className={`bg-gray-400 px-2 py-[9.5px] rounded-e-xl mr-3 hover:bg-gray-500 transition-all duration-200 disabled:bg-gray-300`}
+              className={`bg-gray-400 px-2 py-[9.5px] rounded-e-xl mr-3 hover:bg-gray-500 transition-all duration-200 disabled:bg-gray-400`}
             >
               Add Review
             </button>

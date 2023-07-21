@@ -31,33 +31,37 @@ const AddBook = () => {
 
   return (
     <div>
-      <form>
-        <label>
+      <h1 className="text-2xl text-center mb-8 font-medium">Add New Book</h1>
+      <form className="max-w-lg mx-6 md:mx-auto">
+        <label className="block font-medium text-gray-700">
           Title:
           <input
             type="text"
             name="title"
             value={formData.title}
             onChange={handleInputChange}
+            className="w-full px-4 py-2 border rounded-lg"
           />
         </label>
         <br />
-        <label>
+        <label className="block font-medium text-gray-700">
           Author:
           <input
             type="text"
             name="author"
             value={formData.author}
             onChange={handleInputChange}
+            className="w-full px-4 py-2 border rounded-lg"
           />
         </label>
         <br />
-        <label>
+        <label className="block font-medium text-gray-700">
           Genre:
           <select
             name="genre"
             value={formData.genre}
             onChange={handleInputChange}
+            className="w-full px-4 py-2 border rounded-lg"
           >
             <option value="">Select a genre</option>
             <option value="mystery">Mystery</option>
@@ -71,19 +75,26 @@ const AddBook = () => {
           </select>
         </label>
         <br />
-        <label>
+        <label className="block font-medium text-gray-700">
           Publication Date:
           <input
             type="text"
             name="publicationDate"
             value={formData.publicationDate}
             onChange={handleInputChange}
+            className="w-full px-4 py-2 border rounded-lg"
           />
         </label>
         <br />
-        <button type="button" onClick={handleAddBook}>
-          Add Book
-        </button>
+        <div className="text-center">
+          <button
+            type="button"
+            onClick={handleAddBook}
+            className="bg-gray-400 px-3 py-2 rounded-lg hover:bg-gray-500 transition-all duration-200 focus:outline-none active:transform active:scale-95"
+          >
+            Add Book
+          </button>
+        </div>
       </form>
     </div>
   );

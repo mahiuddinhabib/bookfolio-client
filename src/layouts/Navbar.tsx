@@ -3,16 +3,19 @@ import { Navbar as Nav } from "flowbite-react";
 import { Link, useNavigate } from "react-router-dom";
 import bookCover from "@/assets/bookCover.png";
 import MyButton from "@/components/Button";
+import { useAppDispatch, useAppSelector } from "@/redux/hook";
+import { toggledLogin } from "@/redux/features/user/userSlice";
 
 const Navbar = () => {
-  const [userId, setUserId] = React.useState(""); // Use React.useState instead of useState
+  const dispatch = useAppDispatch();
+  const isLoggedIn = useAppSelector((state) => state.user.isLoggedIn);
 
   React.useEffect(() => {
     const storedUserId = localStorage.getItem("id");
     if (storedUserId) {
-      setUserId(storedUserId);
+      dispatch(toggledLogin(true));
     }
-  }, []);
+  }, [dispatch]);
 
   const navigate = useNavigate();
 
@@ -23,7 +26,7 @@ const Navbar = () => {
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("id");
-    setUserId(""); // Update userId state to empty after logout
+    dispatch(toggledLogin(false))
     navigate("/");
   };
 
@@ -42,7 +45,7 @@ const Navbar = () => {
         </Nav.Brand>
       </Link>
       <div className="flex md:order-2">
-        {!userId ? (
+        {!isLoggedIn ? (
           <MyButton onClick={handleLogin}>Login</MyButton>
         ) : (
           <MyButton onClick={handleLogout}>Logout</MyButton>
@@ -56,8 +59,14 @@ const Navbar = () => {
         <Link to={"/all-books"}>
           <Nav.Link>All Books</Nav.Link>
         </Link>
-        <Link to={"/"}>
-          <Nav.Link>About</Nav.Link>
+        <Link to={"/add-book"}>
+          <Nav.Link>Add New Book</Nav.Link>
+        </Link>
+        <Link to={"/wish-list"}>
+          <Nav.Link>Wishlist</Nav.Link>
+        </Link>
+        <Link to={"/to-read"}>
+          <Nav.Link>To Read</Nav.Link>
         </Link>
       </Nav.Collapse>
     </Nav>

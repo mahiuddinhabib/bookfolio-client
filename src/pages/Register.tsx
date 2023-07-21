@@ -32,13 +32,19 @@ const Register = () => {
       password: formData.password,
     };
     postUser({ data: formattedData });
-    toast.success("Now login to proceed");
+    toast((t) => (
+      <span>
+        Now <b>login</b> with your <br />
+        credential to proceed
+        <button onClick={() => toast.dismiss(t.id)}>Dismiss</button>
+      </span>
+    ));
     navigate("/");
   };
 
   return (
-    <div className="mt-4 mb-10">
-      <h1 className="text-2xl text-center my-8 font-medium">Please Register</h1>
+    <div className="mb-10">
+      <h1 className="text-2xl text-center mb-8 font-medium">Please Register</h1>
       <form onSubmit={handleSubmit} className="max-w-lg mx-6 md:mx-auto">
         <label className="block font-medium text-gray-700">
           First Name:

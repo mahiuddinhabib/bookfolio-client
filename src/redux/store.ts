@@ -1,15 +1,15 @@
-import { configureStore } from '@reduxjs/toolkit';
-import cartReducer from './features/cart/cartSlice';
-import filterReducer from './features/filters/filterSlice';
-import { api } from './api/apiSlice';
-import userReducer from './features/user/userSlice';
+import { configureStore } from "@reduxjs/toolkit";
+import cartReducer from "./features/cart/cartSlice";
+import filterReducer from "./features/filters/filterSlice";
+import userReducer from "./features/user/userSlice";
+import { api } from "./api/apiSlice";
 
 const store = configureStore({
   reducer: {
     // cart: cartReducer,
     // book: bookReducer,
     filter: filterReducer,
-    // user: userReducer,
+    user: userReducer,
     [api.reducerPath]: api.reducer,
   },
   middleware: (getDefaultMiddleware) =>

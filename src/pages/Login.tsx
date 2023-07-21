@@ -1,9 +1,12 @@
 import { useLoginUserMutation } from "@/redux/features/user/userApi";
+import { toggledLogin } from "@/redux/features/user/userSlice";
+import { useAppDispatch } from "@/redux/hook";
 import React from "react";
 import { toast } from "react-hot-toast/headless";
 import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [formData, setFormData] = React.useState({
     email: "",
@@ -17,13 +20,24 @@ const Login = () => {
     });
   };
 
-  const [loginUser] = useLoginUserMutation();
+  const [loginUser, { isSuccess }] = useLoginUserMutation();
 
+  /*  React.useEffect(() => {
+    if (isSuccess) {
+      toast.success("login successful")
+      navigate("/");
+    }
+  }, [isSuccess, navigate]);
+ */
   const handleSubmit = async (e) => {
     e.preventDefault();
     await loginUser({ data: formData });
-    toast.success("Logged in successfully");
-    navigate("/");
+
+    if (isSuccess) {
+      toast.success("login successful");
+      dispatch(toggledLogin(true));
+      navigate("/");
+    }
   };
 
   return (
