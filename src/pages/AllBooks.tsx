@@ -11,7 +11,7 @@ const AllBooks = () => {
   const { filters, searchTerm } = useAppSelector((state) => state.filter);
   const { genre, publicationDate } = filters;
 
-  const { data } = useGetBooksQuery({
+  const { data, isLoading } = useGetBooksQuery({
     searchTerm: searchTerm,
     genre: genre,
     publicationDate: publicationDate,
@@ -29,6 +29,9 @@ const AllBooks = () => {
   };
 
   // console.log(data.data);
+   if (isLoading) {
+     return <p>Loading...</p>;
+   }
   return (
     <div className="flex justify-evenly mx-4 md:mx-16 lg:mx-30">
       <div

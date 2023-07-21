@@ -1,10 +1,12 @@
 import { useGetWishlistQuery } from "@/redux/features/user/userApi";
 import { Table } from "flowbite-react";
 import bookCover from "@/assets/bookCover.png";
+import { useAppSelector } from "@/redux/hook";
 
 const WishList = () => {
-    const storedUserId = localStorage.getItem("id");
-    const { data } = useGetWishlistQuery(storedUserId);
+    // const storedUserId = localStorage.getItem("id");
+    const userId = useAppSelector((state) => state.user.userId);
+    const { data } = useGetWishlistQuery(userId);
     return (
       <Table hoverable>
         <Table.Head>

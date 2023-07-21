@@ -6,6 +6,6 @@ export const api = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "https://bookfolio-backend.vercel.app/api/v1",
   }),
-  tagTypes: ["reviews", "update", "delete", "toRead", "wishlist"],
+  tagTypes: ["reviews", "add", "update", "delete", "toRead", "wishlist"],
   endpoints: () => ({}),
 });

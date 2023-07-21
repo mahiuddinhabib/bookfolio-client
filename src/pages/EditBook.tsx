@@ -15,23 +15,23 @@ const UpdateBook = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<FormValues>();
-  const [
-    editBook,
-    { isSuccess: isSuccessEdit, isLoading:isLoadingEdit, isError: isEditError, error: errorEdit },
-  ] = useEditBookMutation();
+  const [editBook] = useEditBookMutation();
 
-  const onSubmit = async(formData: FormValues) => {
-    await editBook({ id, data: formData });
-    if (isSuccessEdit) {
-      toast.success("Book updated successfully");
-      navigate(`/single-book/${id}`);
-    }
-    if(isLoadingEdit){
-      toast.loading('trying to edit, please way')
-    }
-    if (isEditError) {
-      console.log(errorEdit);
-      navigate(`/single-book/${id}`);
+  const onSubmit = async (formData: FormValues) => {
+    try {
+      // toast.loading("Trying to update book, please wait..."); // Show loading toast before making the API call
+
+      const response:any = await editBook({ id, data: formData });
+
+      if (response?.data?.success) {
+        toast.success("Book updated successfully");
+        navigate(`/single-book/${id}`);
+      } else {
+        toast.error("Failed to update the book");
+      }
+    } catch (error) {
+      // console.log(error);
+      toast.error("An error occurred while updating the book");
     }
   };
 

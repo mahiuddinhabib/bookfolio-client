@@ -2,20 +2,22 @@ import { useState } from "react";
 import { useAddBookMutation } from "@/redux/features/books/bookApi";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { useAppSelector } from "@/redux/hook";
 
 // const storedUserId = localStorage.getItem("id");
 const AddBook = () => {
+  const userId = useAppSelector((state) => state.user.userId);
   const [formData, setFormData] = useState({
     title: "",
     author: "",
     genre: "",
     publicationDate: "",
-    owner: "64ba1711bfcfeefcb8c7039c",
+    owner: userId,
   });
   const [addBook] = useAddBookMutation();
   const navigate = useNavigate();
 
-  const handleInputChange = (e:any) => {
+  const handleInputChange = (e: any) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -23,10 +25,21 @@ const AddBook = () => {
   };
 
   const handleAddBook = async () => {
-    await addBook({ data: formData });
-    // console.log(formData);
-    toast.success("Book added successfully");
-    navigate("/");
+    try {
+      // toast.loading("Adding book, please wait..."); // Show loading toast before making the API call
+
+      const response: any = await addBook({ data: formData });
+
+      if (response?.data?.success) {
+        toast.success("Book added successfully");
+        navigate("/");
+      } else {
+        toast.error("Failed to add the book");
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("An error occurred while adding the book");
+    }
   };
 
   return (

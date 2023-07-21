@@ -1,5 +1,4 @@
 import { api } from "@/redux/api/apiSlice";
-
 const userApi = api.injectEndpoints({
   endpoints: (builder) => ({
     registerUser: builder.mutation({

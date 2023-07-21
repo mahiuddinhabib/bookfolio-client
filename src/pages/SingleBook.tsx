@@ -1,6 +1,5 @@
 import { useState } from "react";
 import {
-  useDeleteBookMutation,
   usePostReviewMutation,
   useSingleBookQuery,
 } from "@/redux/features/books/bookApi";
@@ -12,45 +11,35 @@ import {
   useAddTotoReadMutation,
 } from "@/redux/features/user/userApi";
 import { toast } from "react-hot-toast";
-import { HiOutlineExclamationCircle } from "react-icons/hi";
-import { Button, Modal } from "flowbite-react";
+import { useAppSelector } from "@/redux/hook";
+import MyModal from "@/components/MyModal";
 
 const BookDetail = () => {
-  const storedUserId = localStorage.getItem("id");
+  const userId = useAppSelector((state) => state.user.userId);
   const { id } = useParams();
   const { data, isLoading } = useSingleBookQuery(id);
   const [revieW, setRevieW] = useState("");
   const [addReview] = usePostReviewMutation();
-  const [deleteBook] = useDeleteBookMutation();
   const [addToWishlist] = useAddToWishlistMutation();
   const [addTotoRead] = useAddTotoReadMutation();
-  const [openModal, setOpenModal] = useState<string | undefined>();
-  const props = { openModal, setOpenModal };
+  const [openModal, setOpenModal] = useState(false);
   const navigate = useNavigate();
 
-  const handleAddReview = (e:any) => {
+  const handleAddReview = (e: any) => {
     e.preventDefault();
     // console.log(revieW);
     const data = {
-      reviewer: storedUserId, //user id
+      reviewer: userId,
       review: revieW,
     };
-    // Call the addReview mutation with the book ID and review data
     addReview({ id, data });
     toast.success("Review added");
     setRevieW("");
   };
 
-  const handleDelete = async() => {
-    await deleteBook({ id });
-    toast.error("Book deleted Successfully");
-    props.setOpenModal(undefined);
-    navigate(`/`);
-  };
-
   const handleAddToWishlist = async () => {
     const wishedData = {
-      user: storedUserId,
+      user: userId,
       book: id,
     };
     try {
@@ -64,11 +53,12 @@ const BookDetail = () => {
 
   const handleAddTotoRead = async () => {
     const readData = {
-      user: storedUserId,
+      user: userId,
       book: id,
     };
     try {
       await addTotoRead(readData);
+      toast.success("Added to To Read");
       navigate("/to-read");
     } catch (error) {
       console.log(error);
@@ -108,10 +98,10 @@ const BookDetail = () => {
           Edit Book
         </Link>
         <button
-          onClick={() => props.setOpenModal("pop-up")}
+          onClick={() => setOpenModal(true)}
           className="bg-gray-400 px-2 py-1 rounded-lg mr-3 hover:bg-gray-500 transition-all duration-200 focus:outline-none active:transform active:scale-95"
         >
-          Delete Book
+          Delete book
         </button>
         <button
           onClick={handleAddToWishlist}
@@ -130,7 +120,7 @@ const BookDetail = () => {
         {reviews && reviews.length > 0 && (
           <div className="mt-8">
             <h2 className="text-xl font-semibold mb-4">Reviews</h2>
-            {reviews.map((review:any) => (
+            {reviews.map((review: any) => (
               <div key={review._id} className="flex items-center mb-4">
                 <img
                   src={profilePhoto}
@@ -171,36 +161,7 @@ const BookDetail = () => {
         </div>
       </div>
       {/* modal */}
-      <Modal
-        show={props.openModal === "pop-up"}
-        size="md"
-        popup
-        onClose={() => props.setOpenModal(undefined)}
-      >
-        <Modal.Header />
-        <Modal.Body>
-          <div className="text-center">
-            <HiOutlineExclamationCircle className="mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200" />
-            <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-              Are you sure you want to delete this book?
-            </h3>
-            <div className="flex justify-center gap-4">
-              <Button
-                color="failure"
-                onClick={handleDelete}
-              >
-                Yes, I'm sure
-              </Button>
-              <Button
-                color="gray"
-                onClick={() => props.setOpenModal(undefined)}
-              >
-                No, cancel
-              </Button>
-            </div>
-          </div>
-        </Modal.Body>
-      </Modal>
+      <MyModal open={openModal} onClose={() => setOpenModal(false)} id={id} />
     </div>
   );
 };

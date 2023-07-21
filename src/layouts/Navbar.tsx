@@ -4,18 +4,24 @@ import { Link, useNavigate } from "react-router-dom";
 import bookCover from "@/assets/bookCover.png";
 import MyButton from "@/components/Button";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
-import { toggledLogin } from "@/redux/features/user/userSlice";
+import { setUserId, toggledLogin } from "@/redux/features/user/userSlice";
 
 const Navbar = () => {
   const dispatch = useAppDispatch();
   const isLoggedIn = useAppSelector((state) => state.user.isLoggedIn);
+  const userId = useAppSelector((state) => state.user.userId);
+  const storedUserId = localStorage.getItem("id");
+  // console.log(userId);
+
+  if (!userId && storedUserId) {
+    dispatch(setUserId(storedUserId));
+  }
 
   React.useEffect(() => {
-    const storedUserId = localStorage.getItem("id");
-    if (storedUserId) {
+    if (userId) {
       dispatch(toggledLogin(true));
     }
-  }, [dispatch]);
+  }, [dispatch, storedUserId, userId]);
 
   const navigate = useNavigate();
 
@@ -26,7 +32,8 @@ const Navbar = () => {
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("id");
-    dispatch(toggledLogin(false))
+    dispatch(setUserId(""));
+    dispatch(toggledLogin(false));
     navigate("/");
   };
 
