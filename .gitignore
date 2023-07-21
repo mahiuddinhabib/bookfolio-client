@@ -27,3 +27,5 @@ dist-ssr
 #temporary files
 cart
 bookSlice.ts
+# Local Netlify folder
+.netlify

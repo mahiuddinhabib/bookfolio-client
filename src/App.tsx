@@ -4,7 +4,7 @@ import MainLayout from "./layouts/MainLayout";
 function App() {
   return (
     <div>
-      <Toaster position="bottom-right" reverseOrder={false} />
+      <Toaster position="top-right" reverseOrder={false} />
       <MainLayout />
     </div>
   );

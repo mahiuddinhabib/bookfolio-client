@@ -12,7 +12,6 @@ const Register = () => {
   });
 
   const [postUser] = useRegisterUserMutation();
-
   const navigate = useNavigate();
   const handleInputChange = (e: any) => {
     setFormData({
@@ -21,7 +20,7 @@ const Register = () => {
     });
   };
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     const formattedData = {
       name: {
@@ -31,15 +30,30 @@ const Register = () => {
       email: formData.email,
       password: formData.password,
     };
-    postUser({ data: formattedData });
-    toast((t) => (
-      <span>
-        Now <b>login</b> with your <br />
-        credential to proceed
-        <button onClick={() => toast.dismiss(t.id)}>Dismiss</button>
-      </span>
-    ));
-    navigate("/");
+
+    try {
+      const response: any = await postUser({ data: formattedData });
+
+      if (response?.data?.success) {
+        toast.custom(
+          <div className="py-3 px-4 rounded-lg bg-gray-300">
+            Registration successful <br /> Now{" "}
+            <span className="font-extrabold">login</span> to proceed
+          </div>
+        );
+        navigate("/");
+      } else {
+        toast.error(
+          "Registration failed. Please check your details and try again."
+        );
+        console.log(response);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(
+        "An error occurred during registration. Please try again later."
+      );
+    }
   };
 
   return (
