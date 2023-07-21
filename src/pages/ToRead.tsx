@@ -4,6 +4,7 @@ import {
 } from "@/redux/features/user/userApi";
 import { Table } from "flowbite-react";
 import bookCover from "@/assets/bookCover.png"
+import { toast } from "react-hot-toast";
 
 const ToRead = () => {
   const storedUserId = localStorage.getItem("id");
@@ -17,7 +18,8 @@ const ToRead = () => {
       user: storedUserId,
       book: bookId,
     };
-    await finished(finishedData).then((data) => console.log(data));
+    await finished(finishedData);
+    toast.success("Finished reading")
   };
   return (
     <Table hoverable>

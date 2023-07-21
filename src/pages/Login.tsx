@@ -1,5 +1,6 @@
 import { useLoginUserMutation } from "@/redux/features/user/userApi";
 import React from "react";
+import { toast } from "react-hot-toast/headless";
 import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
@@ -16,50 +17,56 @@ const Login = () => {
     });
   };
 
-  const [loginUser, { isLoading, isError, isSuccess }] = useLoginUserMutation();
+  const [loginUser] = useLoginUserMutation();
 
-  React.useEffect(() => {
-    if (isSuccess) {
-      // If login was successful, navigate to the homepage
-      navigate("/");
-    }
-  }, [isSuccess, navigate]);
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    loginUser({ data: formData });
+    await loginUser({ data: formData });
+    toast.success("Logged in successfully");
+    navigate("/");
   };
 
-  console.log(isLoading, isError, isSuccess);
-
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <label>
+    <div className="mt-4 mb-10">
+      <h1 className="text-2xl text-center my-8 font-medium">Please Login</h1>
+      <form onSubmit={handleSubmit} className="max-w-lg mx-6 md:mx-auto">
+        <label className="block font-medium text-gray-700">
           Email:
           <input
             type="email"
             name="email"
             value={formData.email}
             onChange={handleInputChange}
+            className="w-full px-4 py-2 border rounded-lg"
           />
         </label>
         <br />
-        <label>
+        <label className="block font-medium text-gray-700">
           Password:
           <input
             type="password"
             name="password"
             value={formData.password}
             onChange={handleInputChange}
+            className="w-full px-4 py-2 border rounded-lg"
           />
         </label>
         <br />
-        <button type="submit">Login</button>
+        <div className="text-center">
+          <button
+            type="submit"
+            className="bg-gray-400 px-3 py-2 rounded-lg hover:bg-gray-500 transition-all duration-200 focus:outline-none active:transform active:scale-95"
+          >
+            Login
+          </button>
+        </div>
       </form>
-      <p>
+      <p className="text-center">
         Haven't an account yet?
-        <Link to={"/register"}>Register Here</Link>
+        <Link to={"/register"} className="underline">
+          {" "}
+          Register Here
+        </Link>
       </p>
     </div>
   );

@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useRegisterUserMutation } from "@/redux/features/user/userApi";
+import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -9,111 +11,90 @@ const Register = () => {
     password: "",
   });
 
-  const [postUser, { isLoading, isError, isSuccess }] =
-    useRegisterUserMutation();
+  const [postUser] = useRegisterUserMutation();
 
-  const handleInputChange = (e:any) => {
+  const navigate = useNavigate();
+  const handleInputChange = (e: any) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
   };
 
-  const handleSubmit = (e:any) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
     const formattedData = {
-      name:{
+      name: {
         firstName: formData.firstName,
-        lastName: formData.lastName
+        lastName: formData.lastName,
       },
       email: formData.email,
-      password: formData.password
-    }
-    postUser({ data: formattedData })
-      .then((data) => console.log(data))
-      .catch((err) => console.log(err));
+      password: formData.password,
+    };
+    postUser({ data: formattedData });
+    toast.success("Now login to proceed");
+    navigate("/");
   };
 
-  console.log(isLoading, isError, isSuccess);
-
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <label>
+    <div className="mt-4 mb-10">
+      <h1 className="text-2xl text-center my-8 font-medium">Please Register</h1>
+      <form onSubmit={handleSubmit} className="max-w-lg mx-6 md:mx-auto">
+        <label className="block font-medium text-gray-700">
           First Name:
           <input
             type="text"
             name="firstName"
             value={formData.firstName}
             onChange={handleInputChange}
+            className="w-full px-4 py-2 border rounded-lg"
           />
         </label>
         <br />
-        <label>
+        <label className="block font-medium text-gray-700">
           Last Name:
           <input
             type="text"
             name="lastName"
             value={formData.lastName}
             onChange={handleInputChange}
+            className="w-full px-4 py-2 border rounded-lg"
           />
         </label>
         <br />
-        <label>
+        <label className="block font-medium text-gray-700">
           Email:
           <input
             type="email"
             name="email"
             value={formData.email}
             onChange={handleInputChange}
+            className="w-full px-4 py-2 border rounded-lg"
           />
         </label>
         <br />
-        <label>
+        <label className="block font-medium text-gray-700">
           Password:
           <input
             type="password"
             name="password"
             value={formData.password}
             onChange={handleInputChange}
+            className="w-full px-4 py-2 border rounded-lg"
           />
         </label>
         <br />
-        <button type="submit">Register</button>
+        <div className="text-center">
+          <button
+            type="submit"
+            className="bg-gray-400 px-3 py-2 rounded-lg hover:bg-gray-500 transition-all duration-200 focus:outline-none active:transform active:scale-95"
+          >
+            Register
+          </button>
+        </div>
       </form>
     </div>
   );
 };
 
 export default Register;
-
-/* import { useRegisterUserMutation } from "@/redux/features/user/userApi";
-
-const Register = () => {
-  const data = {
-    name: {
-      firstName: "User",
-      lastName: "Test",
-    },
-    email: "mail@mmail.com",
-    password: "nopass",
-  };
-  const [postUser, { isLoading, isError, isSuccess }] =
-    useRegisterUserMutation();
-
-  const handlePost = () => {
-    postUser({ data })
-      .then((data) => console.log(data))
-      .then((err) => console.log(err));
-  };
-  console.log(isLoading, isError, isSuccess);
-  return (
-    <div>
-      <button onClick={handlePost}>Post User</button>
-    </div>
-  );
-};
-
-export default Register;
-
- */

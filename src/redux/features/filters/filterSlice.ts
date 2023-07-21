@@ -3,7 +3,7 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 
 interface IBookFilter {
   searchTerm: string;
-  filters: Record<string, string>;
+  filters: Record<string, string> ;
 }
 
 const initialState: IBookFilter = {

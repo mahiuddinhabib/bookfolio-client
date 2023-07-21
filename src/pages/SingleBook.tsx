@@ -11,7 +11,7 @@ import {
   useAddToWishlistMutation,
   useAddTotoReadMutation,
 } from "@/redux/features/user/userApi";
-import Error from "./Error";
+import { toast } from "react-hot-toast";
 
 const BookDetail = () => {
   const storedUserId = localStorage.getItem("id");
@@ -38,7 +38,8 @@ const BookDetail = () => {
 
   const handleDelete = () => {
     deleteBook({ id });
-    navigate(`/all-books`);
+    toast.error("Book deleted Successfully");
+    navigate(`/`);
   };
 
   const handleAddToWishlist = async () => {
@@ -48,6 +49,7 @@ const BookDetail = () => {
     };
     try {
       await addToWishlist(wishedData);
+      toast.success("Added to wishlist");
       navigate("/wish-list");
     } catch (error) {
       console.log(error);

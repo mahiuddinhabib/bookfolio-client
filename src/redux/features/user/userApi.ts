@@ -33,6 +33,7 @@ const userApi = api.injectEndpoints({
         method: "POST",
         body: data,
       }),
+      invalidatesTags: ["wishlist"],
     }),
     getWishlist: builder.query({
       query: (id) => ({
@@ -41,6 +42,7 @@ const userApi = api.injectEndpoints({
           Authorization: `${localStorage.getItem("accessToken")}`,
         },
       }),
+      providesTags: ["wishlist"],
     }),
     addTotoRead: builder.mutation({
       query: (data) => ({
@@ -51,6 +53,7 @@ const userApi = api.injectEndpoints({
         method: "POST",
         body: data,
       }),
+      invalidatesTags: ["toRead"],
     }),
     updateIsFinished: builder.mutation({
       query: (data) => ({
@@ -61,6 +64,7 @@ const userApi = api.injectEndpoints({
         method: "PATCH",
         body: data,
       }),
+      invalidatesTags: ["toRead"],
     }),
     getToRead: builder.query({
       query: (id) => ({
@@ -69,7 +73,7 @@ const userApi = api.injectEndpoints({
           Authorization: `${localStorage.getItem("accessToken")}`,
         },
       }),
-      // providesTags: ["delete"],
+      providesTags: ["toRead"],
     }),
     /* getUsers: builder.query({
       query: (filters) => ({

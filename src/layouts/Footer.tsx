@@ -4,7 +4,7 @@ import bookCover from "@/assets/bookCover.png"
 
 const Footer = () => {
   return (
-    <FOOTER container className="bg-gray-100 mt-8">
+    <FOOTER container className="bg-gray-100 mt-8 mb-0">
       <div className="w-ful">
         <div className="grid w-full justify-between sm:flex sm:justify-between md:flex md:grid-cols-1">
           <div>

@@ -1,12 +1,11 @@
 import { useForm } from "react-hook-form";
-import { useState } from "react";
 import { FormValues } from "../types/globalTypes";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   useSingleBookQuery,
   useEditBookMutation,
 } from "../redux/features/books/bookApi";
-
+import { toast } from "react-hot-toast";
 const UpdateBook = () => {
   const { id } = useParams();
   const { data: book, isLoading, isError } = useSingleBookQuery(id);
@@ -22,9 +21,7 @@ const UpdateBook = () => {
 
     try {
       await editBook({ id, data: formData });
-
-      // Display a success toast
-      // toast.success("Book updated successfully");
+      toast.success("Book updated successfully");
 
       navigate(`/single-book/${id}`);
     } catch (error) {

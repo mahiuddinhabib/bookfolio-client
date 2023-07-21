@@ -1,16 +1,19 @@
 import { useState } from "react";
 import { useAddBookMutation } from "@/redux/features/books/bookApi";
+import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
+const storedUserId = localStorage.getItem("id");
 const AddBook = () => {
   const [formData, setFormData] = useState({
     title: "",
     author: "",
     genre: "",
     publicationDate: "",
-    owner: "",
+    owner: storedUserId
   });
-
-  const [addBook, { isLoading, isError, isSuccess }] = useAddBookMutation();
+  const [addBook] = useAddBookMutation();
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     setFormData({
@@ -19,8 +22,11 @@ const AddBook = () => {
     });
   };
 
-  const handleAddBook = () => {
-    addBook({ data: formData }).then((data) => console.log(data));
+  const handleAddBook = async () => {
+    await addBook({ data: formData });
+    // console.log(formData);
+    toast.success("Book added successfully");
+    navigate("/");
   };
 
   return (
@@ -48,12 +54,21 @@ const AddBook = () => {
         <br />
         <label>
           Genre:
-          <input
-            type="text"
+          <select
             name="genre"
             value={formData.genre}
             onChange={handleInputChange}
-          />
+          >
+            <option value="">Select a genre</option>
+            <option value="mystery">Mystery</option>
+            <option value="fantasy">Fantasy</option>
+            <option value="self-help">Self-Help</option>
+            <option value="biography">Biography</option>
+            <option value="thriller">Thriller</option>
+            <option value="romance">Romance</option>
+            <option value="history">History</option>
+            <option value="fiction">Fiction</option>
+          </select>
         </label>
         <br />
         <label>
@@ -62,16 +77,6 @@ const AddBook = () => {
             type="text"
             name="publicationDate"
             value={formData.publicationDate}
-            onChange={handleInputChange}
-          />
-        </label>
-        <br />
-        <label>
-          Owner:
-          <input
-            type="text"
-            name="owner"
-            value={formData.owner}
             onChange={handleInputChange}
           />
         </label>
@@ -85,29 +90,3 @@ const AddBook = () => {
 };
 
 export default AddBook;
-
-/* import { useAddBookMutation } from "@/redux/features/books/bookApi";
-
-const AddBook = () => {
-  const data = {
-    title: "Test Book 2",
-    author: "Test Writer",
-    genre: "fiction",
-    publicationDate: "2023",
-    owner: "64b0d1c10f130293529e59d3",
-  };
-
-  const [addBook, { isLoading, isError, isSuccess }] = useAddBookMutation();
-
-  const handleAddBook = () => {
-    addBook({ data }).then(data=>console.log(data));
-  };
-  return (
-    <div>
-      <button onClick={handleAddBook}>Add Book</button>
-    </div>
-  );
-};
-
-export default AddBook;
- */

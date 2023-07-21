@@ -4,7 +4,7 @@ import { setFilter, setSearchTerm } from "@/redux/features/filters/filterSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import { IBook } from "@/types/globalTypes";
 import { Table } from "flowbite-react";
-import { BiSearchAlt } from "react-icons/bi";
+import { Link } from "react-router-dom";
 
 const AllBooks = () => {
   const dispatch = useAppDispatch();
@@ -16,6 +16,10 @@ const AllBooks = () => {
     genre: genre,
     publicationDate: publicationDate,
   });
+
+  const publicationYears = [
+    ...new Set(data?.data?.map((book) => book.publicationDate)),
+  ];
   
   const handleFilterChange = (key: string, value: string) => {
     dispatch(setFilter({ key, value }));
@@ -28,52 +32,75 @@ const AllBooks = () => {
   return (
     <div className="flex justify-evenly mx-4 md:mx-16 lg:mx-30">
       <div
-        className={`inset-y-0 left-0 bg-gray-200 transition-transform duration-300 transform relative translate-x-0 w-auto p-0`}
+        className={`inset-y-0 left-0 bg-gray-200 rounded-lg transition-transform duration-300 transform relative translate-x-0 w-auto p-4`}
       >
         {/* Search Bar */}
-        <li className="flex bg-white mx-auto h-8 w-full max-w-lg rounded-full pr-3">
+        <li className="flex bg-white mx-auto h-10 w-full max-w-lg rounded-full pr-3">
           <input
             className="h-8 rounded-full w-full text-sm border-0 focus:ring-0 outline-none"
             type="text"
             name="search"
-            id="search"
+            placeholder="Type to search"
             value={searchTerm}
             onChange={(e) => handleSearchTermChange(e.target.value)}
           />
-          <button onClick={() => handleSearchTermChange("")}>
-            <BiSearchAlt />
-          </button>
         </li>
 
         {/* Dropdown Select Options */}
-        <div>
-          <label htmlFor="genre">Genre:</label>
-          <select
-            id="genre"
-            value={filters.genre}
-            onChange={(e) => handleFilterChange("genre", e.target.value)}
-          >
-            <option value="">All</option>
-            <option value="fantasy">Fantasy</option>
-            <option value="romance">Romance</option>
-          </select>
-
-          <label htmlFor="publicationDate">Publication Date:</label>
-          <select
-            id="publicationDate"
-            value={filters.publicationDate}
-            onChange={(e) =>
-              handleFilterChange("publicationDate", e.target.value)
-            }
-          >
-            <option value="">All</option>
-            <option value="2011">2011</option>
-            <option value="1969">1969</option>
-          </select>
+        <div className="flex gap-20 my-10">
+          <div>
+            <label htmlFor="genre" className="font-medium text-gray-700">
+              Genre
+            </label>{" "}
+            <br />
+            <select
+              id="genre"
+              value={filters.genre}
+              onChange={(e) => handleFilterChange("genre", e.target.value)}
+              className="w-full px-4 py-2 border rounded-lg"
+            >
+              <option value="">All</option>
+              <option value="mystery">Mystery</option>
+              <option value="fantasy">Fantasy</option>
+              <option value="self-help">Self-Help</option>
+              <option value="biography">Biography</option>
+              <option value="thriller">Thriller</option>
+              <option value="romance">Romance</option>
+              <option value="history">History</option>
+              <option value="fiction">Fiction</option>
+            </select>
+          </div>
+          <div>
+            <label
+              htmlFor="publicationDate"
+              className="font-medium text-gray-700"
+            >
+              Publication Year
+            </label>
+            <br />
+            <select
+              id="publicationDate"
+              value={filters.publicationDate}
+              onChange={(e) =>
+                handleFilterChange("publicationDate", e.target.value)
+              }
+              className="w-full px-4 py-2 border rounded-lg"
+            >
+              <option value="">All</option>
+              {publicationYears?.map((year: any) => (
+                <option value={year}>{year}</option>
+              ))}
+            </select>
+          </div>
         </div>
 
         {/* Button */}
-        <button className="bg-blue-500 text-white rounded p-2">Add New</button>
+        <Link
+          to={"/add-book"}
+          className="bg-gray-400 px-3 py-2 rounded-lg hover:bg-gray-500 transition-all duration-200 focus:outline-none active:transform active:scale-95"
+        >
+          Add New Book
+        </Link>
       </div>
       <Table hoverable>
         <Table.Head>
